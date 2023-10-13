@@ -1,0 +1,27 @@
+# name of the file
+FILENAME = beysim
+
+# Visual Studio compiler
+CC = cl.exe
+
+# Include path
+IDIR = ../include
+
+# compiler flags:
+CCFLAGS  = /Od /Zi /EHsc /MT
+
+# linker flags:
+LFLAGS = /LIBPATH:../libs/win glfw3.lib assimp-vc143-mt.lib zlib.lib minizip.lib kubazip.lib poly2tri.lib draco.lib pugixml.lib Bullet3Common.lib BulletCollision.lib BulletDynamics.lib LinearMath.lib gdi32.lib user32.lib Shell32.lib Advapi32.lib
+
+SOURCES = ../include/glad/glad.c $(FILENAME).cpp
+
+TARGET = $(FILENAME).exe
+
+.PHONY : all
+all:
+	$(CC) $(CCFLAGS) /I$(IDIR) $(SOURCES) /Fe:$(TARGET) /link $(LFLAGS)
+
+.PHONY : clean
+clean :
+	del $(TARGET)
+	del *.obj *.lib *.exp *.ilk *.pdb
